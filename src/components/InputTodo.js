@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from 'react';
-// import axios from "axios"; 
 
 
 function InputTodo() {
@@ -7,7 +6,6 @@ function InputTodo() {
 
   const onSubmitForm = async (event) => {
     event.preventDefault();
-    
     try {
       const body = { description };
       const response = await fetch('http://localhost:5000/todos', {
@@ -19,18 +17,6 @@ function InputTodo() {
     } catch (err) {
       console.error(err.message);
     }
-    
-    
-    
-
-    
-    // axios.post('http://localhost:5000/todos', description)
-    // .then(function (res) {
-    //   console.log(res);
-    // })
-    // .catch(function (error) {
-    //   console.log(error);
-    // });
   }
   
   return (
