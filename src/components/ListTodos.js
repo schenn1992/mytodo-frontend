@@ -1,10 +1,25 @@
-import React, { Fragment }from 'react'
-
-
+import React, { Fragment, useState, useEffect}from 'react'
+  
 export default function ListTodos() {
+  const [todos, setTodos] = useState([]) 
+
+  const getTodos = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/todos');
+      const jsonResponse = await response.json();
+      setTodos(jsonResponse);
+    } catch(err) {
+      console.error(err.message)
+    }
+  }
+
+  useEffect(() => {
+    getTodos();
+  }, [])
+
   return (
     <Fragment>
-      <table class="table mt-5 tet-center">
+      <table class="table mt-5 text-center">
         <thead>
           <tr>
             <th>Desription</th>
@@ -13,11 +28,13 @@ export default function ListTodos() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-          </tr>
+          {todos.map((todo) => (
+            <tr>
+              <td>{todo.description}</td>
+              <td>Edit</td>
+              <td>Delete</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </Fragment>
