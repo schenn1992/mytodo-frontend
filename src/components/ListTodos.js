@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect} from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
   
 export default function ListTodos() {
   const [todos, setTodos] = useState([]) 
@@ -19,7 +19,8 @@ export default function ListTodos() {
       await fetch(`http://localhost:5000/todos/${id}`, {
         method: 'DELETE'
       });
-      setTodos(todos.filter((todo) => todo.id !== id));
+      const filteredTodos = todos.filter((todo) => todo.id !== id); 
+      setTodos(filteredTodos);
     } catch(err) {
       console.error(err.message);
     }
