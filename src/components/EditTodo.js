@@ -1,7 +1,23 @@
 import React, { Fragment, useState } from 'react';
 
 export default function EditTodo({todo}) {
-  const [ description, setDescription ] = useState(todo.description)
+  const [ description, setDescription ] = useState(todo.description);
+
+  //update description
+  const updateDescription = async function(event) {
+    event.preventDefault();
+    try {
+      const body = { description };
+      const response = await fetch(`http://localhost:5000/todos/${todo.id}`, {
+        method:'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(body)
+      })
+      window.location="/";
+    }catch(err){
+      console.error(err.message);
+    }
+  }
   
   return (
     <Fragment>
@@ -19,7 +35,7 @@ export default function EditTodo({todo}) {
               <input type="text" className="form-control" value={ description } onChange={(event) => setDescription(event.target.value)} />
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-primary" data-dismiss="modal">Edit</button>
+              <button type="button" className="btn btn-primary" data-dismiss="modal" onClick= {(event) => updateDescription(event)}>Edit</button>
               <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
           </div>
